@@ -3,7 +3,7 @@ defmodule Blitzy.Worker do
   require Logger
 
   def start(url) do
-    {timestamp, response} = Duration.measure(fn -> HTTPoison.get(url) end)
+    {timestamp, response} = Duration.measure(fn -> HTTPoison.get(url, [], recv_timeout: 20_000) end)
     handle_response({Duration.to_milliseconds(timestamp), response})
   end
 
